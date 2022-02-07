@@ -1,39 +1,50 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
+import {Basic, Container} from './Style';
+
 
 const Modal = () =>{
 
     const [display, setDisplay] = useState("none");
+    const [containerBackColor, setContainerBackColor] = useState("white");
+    const [containerOpacity, setContainerOpacity] = useState(1);
 
     const ModalModal = () =>{
-        console.log('hi');
         display === "none" ? setDisplay("block") : setDisplay("none");
+        containerBackColor === "white" ? setContainerBackColor("gray") : setContainerBackColor("white");
+        containerOpacity === 1 ? setContainerOpacity(0.7) : setContainerOpacity(1);
     }
 
-    const PopupLayer = styled(basic)`
-        width: 20%;
+    const PopupLayer = styled(Basic)`
+        width: 200px;
         height: 200px;
         color: black;
-        background-color: gray;
+        background-color: white;
         display: ${display};
         line-height: 200px;
         position: relative;
         top: -100px;
+
     `
+    const ModalContainer = styled(Container)`
+        background-color: ${containerBackColor};
+        opacity: ${containerOpacity};
+
+    `
+
     return(
         <div>
-            <h1>Modal</h1>
-            <div>
-                <ModalContainer>
-                    <ModalButton onClick={ModalModal}>
-                        Open Modal
-                    </ModalButton>
-                    <PopupLayer>
-                        <CloseButton onClick={ModalModal}>X</CloseButton>
-                        popup
-                    </PopupLayer>
-                </ModalContainer>
-            </div>
+            <ModalContainer>
+                <h2>Modal</h2>
+                <ModalButton onClick={ModalModal}>
+                    Open Modal
+                </ModalButton>
+                <PopupLayer>
+                    <CloseButton onClick={ModalModal}>X</CloseButton>
+                    Hello CodeStates
+                </PopupLayer>
+            </ModalContainer>
+ 
            
         </div>
     )
@@ -41,13 +52,7 @@ const Modal = () =>{
 
 export default Modal;
 
-const basic = styled.div`
-    display: block;
-    margin: 0 auto;
-    text-align: center;
-`
-
-const ModalButton = styled(basic)`
+const ModalButton = styled(Basic)`
     width: 150px;
     height: 70px;
     color: gray;
@@ -57,18 +62,14 @@ const ModalButton = styled(basic)`
     border-radius: 50px;
     cursor: pointer;
 `
-const CloseButton = styled(basic)`
+const CloseButton = styled(Basic)`
     width: 30px;
     height: 30px;
     position: absolute;
     top: 0;
-    right: 100px;
+    left: 50%;
+    transform: translateX(-50%);
     line-height: 30px;
     cursor: pointer; 
 `
 
-
-const ModalContainer = styled.div`
-    width: 100%;
-    display: block;
-`
