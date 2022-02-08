@@ -1,34 +1,72 @@
 import React, {useState, useEffect} from 'react';
-import styled, {keyframes} from 'styled-components';
+import styled, {css, keyframes} from 'styled-components';
 import {Basic, Container}  from './Style';
 
-const buttonMove = keyframes`
+
+    const buttonMoveRight = keyframes`
         0%{
             left: 8%;
         }
 
         100%{
-            left:15% 
+            left:58% 
         }
     `
 
+    const buttonMoveLeft = keyframes`
+        0%{
+            left: 58%;
+        }
 
-const Toggle = (props) => {
+        100%{
+            left:8% 
+        }
+    `
 
-    const [colorWidth, setColorWidth] = useState(0);
-    const [colorLeft, setColorLeft] = useState(-50);
+    const colorWidthPlus = keyframes`
+        0%{
+            width: 0px;
+        }
+
+        100%{
+            width: 100px;
+        }
+    `
+
+    const colorWidthMinus = keyframes`
+    0%{
+        width: 100px;
+    }
+
+    100%{
+        width: 0px;
+    }
+    `
+
+const Toggle = () => {
+    
     const [flag, setFlag] = useState(false);
+    const [animaPlay, setAnimaPlay] = useState('running');
+    const [animaFillMode, setAnimaFillMode] = useState('reverse');
+
+    useEffect(() => {
+        setAnimaPlay('paused');
+      },[]);
 
     
 
     const ToggleColor = styled(ToggleLayout)`
-        width: ${colorWidth}px;
+        width: 0px;
+        ${(props) => props.check ? css`animation: ${colorWidthPlus} .7s` : css`animation: ${colorWidthMinus} .7s`};
+        animation-fill-mode: forwards;
         background-color: purple;
         border-radius: 0;
         position: relative;
-        left: ${colorLeft}%;
+        left: -50%;
+        transform: translateX(calc(50%));
         z-index: 1;
-
+        animation-play-state: ${animaPlay};
+        animation-direction: ${animaFillMode};
     `
 
     const ToggleButton = styled(Basic)`
@@ -39,14 +77,17 @@ const Toggle = (props) => {
         border-radius: 100px;
         position: absolute;
         left: 8%;
+        ${(props) => props.check ? css`animation: ${buttonMoveRight} .7s` : css`animation: ${buttonMoveLeft} .7s`};
+        animation-fill-mode: forwards;
         z-index: 2;
         cursor: pointer;
-       
+        animation-play-state: ${animaPlay};  
+        animation-direction: ${animaFillMode};
     `
 
     const click = () =>{
-        colorWidth === 0 ?  setColorWidth(90) : setColorWidth(0);
-        colorLeft === -50 ?  setColorLeft(0) : setColorLeft(-50);
+        setAnimaPlay('running');
+        setAnimaFillMode('normal');
         flag === false ?  setFlag(true) : setFlag(false);
     }
 
@@ -56,10 +97,10 @@ const Toggle = (props) => {
             <Container>
                 <ToggleLayout>
                     <ToggleButton onClick={click} check={flag}/>
-                    <ToggleColor>
-            
-                    </ToggleColor>
+                    <ToggleColor check={flag} />
                 </ToggleLayout>
+                <Basic>{flag ? 'on' : 'off'}</Basic>
+            
             </Container>
         </div>
     )
