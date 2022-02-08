@@ -26,7 +26,9 @@ useState에 boolean 값을 갖는 flag state를 설정 하였습니다.
 
 ToggleButton의 props로 값을 전달하여 onClick 시 props 값에 따라 작성된 keyframes로 animation을 주었습니다.
 
-페이지 로드 시 animation이 최초 1회 실행되는 것을 방지하고자 useEffect를 이용하여 animation-play-state를 paused할 수 있도록 하였습니다.
+페이지 로드 시 animation이 최초 1회 실행되는 것을 방지하고자 
+
+useEffect를 이용하여 animation-play-state를 paused할 수 있도록 하였습니다.
 
 
 ### Tab.js
