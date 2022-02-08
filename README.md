@@ -30,7 +30,7 @@ ToggleButton의 props로 값을 전달하여 onClick 시 props 값에 따라 작
 
 useEffect를 이용하여 animation-play-state를 paused할 수 있도록 하였습니다.
 
-props값에 따라 animation을 주는 코드 작성 시 css` ` 형식으로 작성해야되는 것을 몰라 애를 먹었지만
+props값에 따라 animation을 주는 코드 작성 시 css\` \` 형식으로 작성해야되는 것을 몰라 애를 먹었지만
 
 에러코드를 읽고 계속 시도하면서 알게되었습니다.
 
