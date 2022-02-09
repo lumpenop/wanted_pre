@@ -30,6 +30,8 @@ ToggleButton의 props로 값을 전달하여 onClick 시 props 값에 따라 작
 
 useEffect를 이용하여 animation-play-state를 paused할 수 있도록 하였습니다.
 
+#### 구현 시 어려웠던 점
+
 props값에 따라 animation을 주는 코드 작성 시 css\` \` 형식으로 작성해야되는 것을 몰라 애를 먹었지만
 
 에러코드를 읽고 계속 시도하면서 알게되었습니다.
@@ -42,5 +44,23 @@ setState함수를 배열로 저장해두고 onClick 이벤트로 각 li의 번�
 
 전체 색상을 black으로 변경 후 click이벤트가 발생한 li의 색상만 blue로 변경하도록 구현하였습니다.
 
-state 값을 하나로 쓰는 방법을 생각해보다 어쩔 수 없이 3개로 구현하였습니다.
+#### 구현 시 어려웠던 점
+
+state 값을 하나로 쓰는 방법이 생각나지 않아 3개를 사용하여 구현하였습니다.
+
+### ClickToEdit.js
+값을 가지는 state 4개를 선언하여 2개는 input 박스, 2개는 window에서 사용할 수 있도록 하였습니다.
+
+input에서는 onChange()로 값이 변경될 때마다 state값을 변경될 수 있도록 하였고, 
+
+onBlur()를 이용하여 focus가 변경되면 window의 state 값을 input 박스의 state 값으로 변경하도록 구현하였습니다.
+
+#### 구현 시 어려웠던 점
+
+처음엔 useRef와 event listener를 이용하여 window에 click이벤트 발생 시 ref 값을 비교하여 구현하였다가
+
+onBlur() 핸들러를 사용하면 더 편하고 코드도 간결해 질 것 같아 변경하였습니다.
+
+
+
 
