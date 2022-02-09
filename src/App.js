@@ -1,6 +1,7 @@
 import Modal from "./component/Modal";
 import Toggle from './component/Toggle';
 import Tab from './component/Tab'
+import ClickToEdit from "./component/ClickToEdit";
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
         <Modal />
         <Toggle />
         <Tab />
+        <ClickToEdit />
     </div>
   );
 }
