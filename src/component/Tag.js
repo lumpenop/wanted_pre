@@ -2,39 +2,45 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 import {Basic, Container} from './Style';
 
-const Tag = () =>{
+const Tag = (key) =>{
 
     const [tags, setTags] = useState([
-        {id:0, text:'tag'},
-        {id:1, text:'tag'}
+        {text:'tag'},
+        {text:'tag2'}
     ]);
+
 
     const checkEnter = (e) =>{
         if(e.key === 'Enter'){
-            console.log('hi');
             addTag(e);
         }
     }
 
-    const {id, text} = tags;
+    const addTag =(e)=>{
+        let idNum = tags.length; 
 
-    const addTag = (e) =>{
-        console.log(tags.length);
         setTags([
             ...tags,
-           {id:tags.length, text: e.target.value}
+           {id: idNum, text: e.target.value}
         ]);
-       
+        e.target.value='';
     }
+
+    const deleteTag =(num)=>{
+
+        setTags(tags.filter((v, i) => i !== num ));
+
+    }
+
     return(
         <>
             <TagContainer>
                 <h2>Tag</h2>
                 <TagWrap>
-                   <ul style={{display:'flex'}}>
+                   <ul style={{display:'flex', justifyContent: 'flex-start', padding: '0 10px'}}>
                         {tags.map((tag, i)=>{
                             return(
-                            <TagLi key={tag.id}>{tag.text}</TagLi>
+                            <TagLi key={i}>{tag.text} <XButton onClick={()=>{deleteTag(i)}} >x</XButton></TagLi>
                             )
                         })}
                     </ul> 
@@ -50,11 +56,26 @@ const Tag = () =>{
 
 const TagLi = styled.li`
     list-style: none;
-    padding: 3px;
+    padding: 7px;
+    margin-right: 6px;
     background-color: #b266ff;
     color: white;
     text-align: center;
     border-radius: 6px;
+    display: flex;
+`
+
+const XButton = styled.div`
+    width: 18px;
+    height: 18px;
+    line-height: 14px;
+    text-align: center;
+    background-color: white;
+    color: black;
+    border-radius: 15px;
+    margin-left: 5px;
+    margin-top: 2px;
+    cursor: pointer;
 `
 
 const TagContainer = styled(Container)`
@@ -68,7 +89,6 @@ const TagWrap = styled(Basic)`
     border-radius: 15px;
     display: flex;
     align-items: center;
-    padding: 8px;
     box-sizing: border-box;
 `
 
