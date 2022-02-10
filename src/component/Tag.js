@@ -1,18 +1,41 @@
-import React, {useState} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import styled from 'styled-components';
 import {Basic, Container} from './Style';
 
-const Tag = (key) =>{
+const Tag = () =>{
+
+    
 
     const [tags, setTags] = useState([
         {text:'tag'},
         {text:'tag2'}
     ]);
 
+    const [boxBorder, setBoxBorder] = useState({
+        color: 'lightgray',
+        bold: '1px'
+    });
+
+    const inputBox = useRef();
+
+
+
+    const TagWrap = styled(Basic)`
+        width: 650px;
+        height: 50px;
+        border: ${boxBorder.bold} solid ${boxBorder.color};
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        box-sizing: border-box; 
+    `
+
 
     const checkEnter = (e) =>{
-        if(e.key === 'Enter'){
+        if(e.key === 'Enter' && e.target.value !== ''){
+          
             addTag(e);
+            
         }
     }
 
@@ -24,6 +47,7 @@ const Tag = (key) =>{
            {id: idNum, text: e.target.value}
         ]);
         e.target.value='';
+        
     }
 
     const deleteTag =(num)=>{
@@ -31,6 +55,13 @@ const Tag = (key) =>{
         setTags(tags.filter((v, i) => i !== num ));
 
     }
+
+    useEffect(()=>{
+        inputBox.current.focus();
+    },[tags])
+    
+
+
 
     return(
         <>
@@ -47,6 +78,9 @@ const Tag = (key) =>{
                     <TagInput 
                         placeholder='press enter to add tags'
                         onKeyPress={checkEnter} 
+                        ref={inputBox}
+
+                      
                     />
                 </TagWrap>
             </TagContainer>
@@ -82,15 +116,6 @@ const TagContainer = styled(Container)`
     margin: 0 auto;
 `
 
-const TagWrap = styled(Basic)`
-    width: 600px;
-    height: 50px;
-    border: 1px solid lightgray;
-    border-radius: 15px;
-    display: flex;
-    align-items: center;
-    box-sizing: border-box;
-`
 
 const TagInput = styled.input`
     margin: 0 5px;
