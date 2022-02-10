@@ -2,6 +2,7 @@ import Modal from "./component/Modal";
 import Toggle from './component/Toggle';
 import Tab from './component/Tab'
 import ClickToEdit from "./component/ClickToEdit";
+import Tag from './component/Tag';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Toggle />
         <Tab />
         <ClickToEdit />
+        <Tag />
     </div>
   );
 }
