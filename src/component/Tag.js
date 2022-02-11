@@ -1,10 +1,8 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, {useState, useRef, useEffect, memo} from 'react';
 import styled from 'styled-components';
 import {Basic, Container} from './Style';
 
 const Tag = () =>{
-
-    
 
     const [tags, setTags] = useState([
         {text:'tag'},
@@ -53,13 +51,20 @@ const Tag = () =>{
     const deleteTag =(num)=>{
 
         setTags(tags.filter((v, i) => i !== num ));
-
+        setBoxBorder({color: 'lightgray', bold: '1px'});
     }
 
     useEffect(()=>{
-        inputBox.current.focus();
+        // inputBox.current.focus();
     },[tags])
-    
+
+    const onFocus =()=>{
+        setBoxBorder({color: 'purple', bold: '3px'});
+    }
+
+    const onBlur = () => {
+        setBoxBorder({color: 'lightgray', bold: '1px'});
+    }
 
 
 
@@ -68,21 +73,25 @@ const Tag = () =>{
             <TagContainer>
                 <h2>Tag</h2>
                 <TagWrap>
-                   <ul style={{display:'flex', justifyContent: 'flex-start', padding: '0 10px'}}>
-                        {tags.map((tag, i)=>{
-                            return(
-                            <TagLi key={i}>{tag.text} <XButton onClick={()=>{deleteTag(i)}} >x</XButton></TagLi>
-                            )
-                        })}
-                    </ul> 
-                    <TagInput 
-                        placeholder='press enter to add tags'
-                        onKeyPress={checkEnter} 
-                        ref={inputBox}
-
-                      
-                    />
+                        
                 </TagWrap>
+                <TagLayer>
+                    <ul style={{display:'flex', justifyContent: 'flex-start', padding: '0 10px', margin: '0', alignItems:'center',flexShrink: '0'}}>
+                            {tags.map((tag, i)=>{
+                                return(
+                                    <TagLi key={i}>{tag.text} <XButton onClick={()=>{deleteTag(i)}} >x</XButton></TagLi>
+                                )
+                            })}
+                        </ul> 
+                    <TagInput 
+                            placeholder='press enter to add tags'
+                            onKeyPress={checkEnter} 
+                            ref={inputBox}
+                            onFocus={onFocus}
+                            onBlur={onBlur}
+                        
+                        />
+                </TagLayer>
             </TagContainer>
         </>
     )
@@ -92,6 +101,7 @@ const TagLi = styled.li`
     list-style: none;
     padding: 7px;
     margin-right: 6px;
+    height: 20px;
     background-color: #b266ff;
     color: white;
     text-align: center;
@@ -115,12 +125,24 @@ const XButton = styled.div`
 const TagContainer = styled(Container)`
     margin: 0 auto;
 `
+const TagLayer = styled(TagContainer)`
+    display: flex;
+    height: 50px;
+    width: 650px;
+    box-sizing: border-box;
+    position: relative;
+    top: -50px;
+    align-items:center;
+    overflow: hidden;
+    flex-shrink: 0;
+`
 
 
 const TagInput = styled.input`
     margin: 0 5px;
     height: 40px;
     border: none;
+
     &:focus{
         outline: none;
     }
