@@ -14,9 +14,6 @@ const Tag = () =>{
         bold: '1px'
     });
 
-    const inputBox = useRef();
-
-
 
     const TagWrap = styled(Basic)`
         width: 650px;
@@ -54,9 +51,6 @@ const Tag = () =>{
         setBoxBorder({color: 'lightgray', bold: '1px'});
     }
 
-    useEffect(()=>{
-        // inputBox.current.focus();
-    },[tags])
 
     const onFocus =()=>{
         setBoxBorder({color: 'purple', bold: '3px'});
